@@ -88,7 +88,7 @@
     document.getElementById("desligarGeralForm").addEventListener("submit", async function (e) {
       e.preventDefault();
       const loja = document.querySelector('input[name="loja"]:checked').value;
-      const webhookUrl = `https://workflow.t7custom.com.br/webhook-test/travar-bot-${loja}`;
+      const webhookUrl = `https://workflow.t7custom.com.br/webhook/travar-bot-${loja}`;
       const desligar = document.getElementById("desligarSwitch").checked;
 
       const payload = { desligar_geral: desligar };
