@@ -76,7 +76,7 @@
       e.preventDefault();
 
       const loja = document.querySelector('input[name="loja"]:checked').value;
-      const webhookUrl = `https://workflow.t7custom.com.br/webhook-test/travar-bot-${loja}`;
+      const webhookUrl = `https://workflow.t7custom.com.br/webhook/travar-bot-${loja}`;
       const acao = document.querySelector('input[name="desligarGeral"]:checked').value === "true";
 
       const numero = "5516999999999"; // número genérico (fixo para travar geral)
