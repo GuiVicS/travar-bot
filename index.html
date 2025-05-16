@@ -43,14 +43,20 @@
       </div>
     </div>
 
-    <!-- 🔘 Formulário: Desligar Bot Geral -->
-    <form id="desligarGeralForm" class="mb-4">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="desligarSwitch">
-        <label class="form-check-label" for="desligarSwitch">Desligar Bot Geral</label>
-      </div>
-      <button type="submit" class="btn btn-dark mt-2 w-100">Enviar Comando Geral</button>
-    </form>
+ <!-- 🔘 Formulário: Desligar Bot Geral -->
+<form id="desligarGeralForm" class="mb-4">
+  <label class="form-label fw-bold mb-2">Desligar Bot Geral:</label>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="desligarGeral" id="desligarSim" value="true" checked>
+    <label class="form-check-label" for="desligarSim">Sim</label>
+  </div>
+  <div class="form-check mb-2">
+    <input class="form-check-input" type="radio" name="desligarGeral" id="desligarNao" value="false">
+    <label class="form-check-label" for="desligarNao">Não</label>
+  </div>
+  <button type="submit" class="btn btn-dark w-100">Enviar Comando Geral</button>
+</form>
+
 
     <!-- 📲 Formulário individual -->
     <form id="webhookForm">
