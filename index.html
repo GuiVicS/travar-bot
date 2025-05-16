@@ -25,7 +25,7 @@
       <div class="form-check"><input class="form-check-input" type="radio" name="loja" value="remissao" id="lojaRemissao"><label class="form-check-label" for="lojaRemissao">Remissão</label></div>
     </div>
 
-    <!-- 🔘 Formulário Geral com Radio -->
+    <!-- 🔘 Formulário Geral com bolinhas -->
     <form id="desligarGeralForm" class="mb-4">
       <label class="form-label fw-bold mb-2">Travar todos os bots dessa loja?</label>
       <div class="form-check">
@@ -71,7 +71,7 @@
   </div>
 
   <script>
-    // 🔘 Desligar Bot Geral (usando radio)
+    // 🔘 Formulário Geral
     document.getElementById("desligarGeralForm").addEventListener("submit", async function (e) {
       e.preventDefault();
 
@@ -79,17 +79,14 @@
       const webhookUrl = `https://workflow.t7custom.com.br/webhook-test/travar-bot-${loja}`;
       const acao = document.querySelector('input[name="desligarGeral"]:checked').value === "true";
 
-      const numero = "5516999999999"; // número genérico (fixo para travar geral)
-
       const payload = {
-        numero: numero,
-        travar: acao
+        travar_geral: acao
       };
 
       await enviarComando(webhookUrl, payload);
     });
 
-    // 📲 Travar/Destravar Individual
+    // 📲 Formulário Individual
     document.getElementById("webhookForm").addEventListener("submit", async function (e) {
       e.preventDefault();
 
