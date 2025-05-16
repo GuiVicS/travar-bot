@@ -8,7 +8,6 @@
   <style>
     body { background-color: #f8f9fa; padding-top: 40px; }
     .container { max-width: 500px; }
-    .radio-label { margin-bottom: 0.5rem; }
   </style>
 </head>
 <body>
@@ -19,46 +18,28 @@
     <!-- 🏪 Lojas -->
     <div class="mb-3">
       <label class="form-label fw-bold">Escolha a loja:</label>
-      <div id="lojasGroup">
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="loja" id="lojaSaoko" value="saoko" checked>
-          <label class="form-check-label radio-label" for="lojaSaoko">Saoko</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="loja" id="lojaTsete" value="tsetecustom">
-          <label class="form-check-label radio-label" for="lojaTsete">Tsete Custom</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="loja" id="lojaGeek" value="geekroyal">
-          <label class="form-check-label radio-label" for="lojaGeek">Geek Royal</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="loja" id="lojaStellar" value="stellarprint">
-          <label class="form-check-label radio-label" for="lojaStellar">Stellar Print</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="loja" id="lojaRemissao" value="remissao">
-          <label class="form-check-label radio-label" for="lojaRemissao">Remissão</label>
-        </div>
-      </div>
+      <div class="form-check"><input class="form-check-input" type="radio" name="loja" value="saoko" id="lojaSaoko" checked><label class="form-check-label" for="lojaSaoko">Saoko</label></div>
+      <div class="form-check"><input class="form-check-input" type="radio" name="loja" value="tsetecustom" id="lojaTsete"><label class="form-check-label" for="lojaTsete">Tsete Custom</label></div>
+      <div class="form-check"><input class="form-check-input" type="radio" name="loja" value="geekroyal" id="lojaGeek"><label class="form-check-label" for="lojaGeek">Geek Royal</label></div>
+      <div class="form-check"><input class="form-check-input" type="radio" name="loja" value="stellarprint" id="lojaStellar"><label class="form-check-label" for="lojaStellar">Stellar Print</label></div>
+      <div class="form-check"><input class="form-check-input" type="radio" name="loja" value="remissao" id="lojaRemissao"><label class="form-check-label" for="lojaRemissao">Remissão</label></div>
     </div>
 
- <!-- 🔘 Formulário: Desligar Bot Geral -->
-<form id="desligarGeralForm" class="mb-4">
-  <label class="form-label fw-bold mb-2">Desligar Bot Geral:</label>
-  <div class="form-check">
-    <input class="form-check-input" type="radio" name="desligarGeral" id="desligarSim" value="true" checked>
-    <label class="form-check-label" for="desligarSim">Sim</label>
-  </div>
-  <div class="form-check mb-2">
-    <input class="form-check-input" type="radio" name="desligarGeral" id="desligarNao" value="false">
-    <label class="form-check-label" for="desligarNao">Não</label>
-  </div>
-  <button type="submit" class="btn btn-dark w-100">Enviar Comando Geral</button>
-</form>
+    <!-- 🔘 Formulário Geral com Radio -->
+    <form id="desligarGeralForm" class="mb-4">
+      <label class="form-label fw-bold mb-2">Travar todos os bots dessa loja?</label>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="desligarGeral" id="desligarSim" value="true" checked>
+        <label class="form-check-label" for="desligarSim">Sim</label>
+      </div>
+      <div class="form-check mb-2">
+        <input class="form-check-input" type="radio" name="desligarGeral" id="desligarNao" value="false">
+        <label class="form-check-label" for="desligarNao">Não</label>
+      </div>
+      <button type="submit" class="btn btn-dark w-100">Enviar Comando Geral</button>
+    </form>
 
-
-    <!-- 📲 Formulário individual -->
+    <!-- 📲 Formulário Individual -->
     <form id="webhookForm">
       <div class="mb-3">
         <label class="form-label">Número do WhatsApp</label>
@@ -90,14 +71,20 @@
   </div>
 
   <script>
-    // 🔘 Desligar Bot Geral
+    // 🔘 Desligar Bot Geral (usando radio)
     document.getElementById("desligarGeralForm").addEventListener("submit", async function (e) {
       e.preventDefault();
+
       const loja = document.querySelector('input[name="loja"]:checked').value;
       const webhookUrl = `https://workflow.t7custom.com.br/webhook-test/travar-bot-${loja}`;
-      const desligar = document.getElementById("desligarSwitch").checked;
+      const acao = document.querySelector('input[name="desligarGeral"]:checked').value === "true";
 
-      const payload = { desligar_geral: desligar };
+      const numero = "5516999999999"; // número genérico (fixo para travar geral)
+
+      const payload = {
+        numero: numero,
+        travar: acao
+      };
 
       await enviarComando(webhookUrl, payload);
     });
@@ -107,7 +94,7 @@
       e.preventDefault();
 
       const loja = document.querySelector('input[name="loja"]:checked').value;
-      const webhookUrl = `https://workflow.t7custom.com.br/webhook/travar-bot-${loja}`;
+      const webhookUrl = `https://workflow.t7custom.com.br/webhook-test/travar-bot-${loja}`;
       const ddi = document.getElementById("ddi").value;
       const numero = document.getElementById("numero").value.replace(/\D/g, '');
       const travar = document.getElementById("travar").value === "true";
@@ -120,7 +107,7 @@
       await enviarComando(webhookUrl, payload);
     });
 
-    // ✅ Função genérica para envio
+    // ✅ Função genérica de envio
     async function enviarComando(url, payload) {
       const result = document.getElementById("result");
       try {
@@ -148,9 +135,9 @@
       } catch (error) {
         result.textContent = "❌ Erro de rede: " + error.message;
         result.style.color = "red";
-        console.error(error);
       }
     }
   </script>
+
 </body>
 </html>
