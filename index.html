@@ -94,7 +94,7 @@
       e.preventDefault();
 
       const loja = document.querySelector('input[name="loja"]:checked').value;
-      const webhookUrl = `https://workflow.t7custom.com.br/webhook-test/travar-bot-${loja}`;
+      const webhookUrl = `https://workflow.t7custom.com.br/webhook/travar-bot-${loja}`;
       const ddi = document.getElementById("ddi").value;
       const numero = document.getElementById("numero").value.replace(/\D/g, '');
       const travar = document.getElementById("travar").value === "true";
